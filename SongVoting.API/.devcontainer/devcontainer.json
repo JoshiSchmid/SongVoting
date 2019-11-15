@@ -9,13 +9,18 @@
 		"terminal.integrated.shell.linux": "/bin/bash"
 	},
 	// Uncomment the next line if you want to publish any ports.
-	// "appPort": [],
+	"appPort": [
+		5000
+	],
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "dotnet restore",
 	// Uncomment the next line to use a non-root user. On Linux, this will prevent
 	// new files getting created as root, but you may need to update the USER_UID
 	// and USER_GID in .devcontainer/Dockerfile to match your user if not 1000.
-	// "runArgs": [ "-u", "vscode" ],
+	"runArgs": [
+		"-e",
+		"ASPNETCORE_Kestrel__Endpoints__Http__Url=http://*:5000"
+	],
 	// Add the IDs of extensions you want installed when the container is created in the array below.
 	"extensions": [
 		"ms-vscode.csharp"
