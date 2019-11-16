@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { TestValue } from '../models/TestValue';
+import React, { useState, ReactNode } from 'react';
 
 interface ComponentProps {
-  item: TestValue;
+  children: (liked?: boolean) => ReactNode;
 }
 
-const VotingItem: React.FC<ComponentProps> = ({ item, children }) => {
-  const [liked, setLiked] = useState(item.liked);
-
-  useEffect(() => {}, [liked]);
+const VotingItem: React.FC<ComponentProps> = ({ children }) => {
+  const [liked, setLiked] = useState<boolean | undefined>();
 
   const handleLike = () => {
     setLiked(oldLiked => (oldLiked !== true ? true : undefined));
@@ -20,7 +17,7 @@ const VotingItem: React.FC<ComponentProps> = ({ item, children }) => {
 
   return (
     <div>
-      {children}
+      {children(liked)}
       <button onClick={handleLike}>Like</button>
       <button onClick={handleDislike}>Dislike</button>
       {liked === true ? 'Liked' : liked === false ? 'Disliked' : ''}

@@ -1,38 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { TestValue } from '../models/TestValue';
 import VotingItem from './VotingItem';
-import EmbededSpotifyTrack from './EmbededSpotifyTrack';
-
-const testValues: TestValue[] = [
-  {
-    songId: '3BQ4q1bmonEIteIrlt1zxm',
-  },
-  {
-    songId: '4UPk6n78h6dHxEgIx0Lxh3',
-  },
-  {
-    songId: '0JO1CEUuyozopyTLPEMmhj',
-  },
-  {
-    songId: '1UCJecpXZ6mSReWOoHq8t7',
-  },
-  {
-    songId: '7HsjQDosSNy6qr1IFhUsXe',
-  },
-];
+import SpotifyTrack from './SpotifyTrack';
+import { Song } from '../models/Song';
 
 const VotingSession: React.FC = () => {
-  const [items, setItems] = useState<TestValue[]>([]);
+  const [items, setItems] = useState<Song[]>([]);
 
   useEffect(() => {
-    setItems(testValues);
+    fetch('http://localhost:5000/api/songs')
+      .then(resp => resp.json())
+      .then(resp => {
+        setItems(resp);
+      })
+      .catch(err => console.error(err));
   }, []);
 
   return (
     <div>
       {items.map((item, index) => (
-        <VotingItem key={index} item={item}>
-          <EmbededSpotifyTrack songId={item.songId} />
+        <VotingItem key={index}>
+          {liked => <SpotifyTrack songId={item.songId} liked={liked} />}
         </VotingItem>
       ))}
     </div>
