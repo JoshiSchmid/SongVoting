@@ -29,6 +29,13 @@ namespace SongVoting.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseHealthChecks("/health");
