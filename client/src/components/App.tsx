@@ -1,11 +1,12 @@
 import React from 'react';
+import VotingSession from './VotingSession';
 
 const App: React.FC = () => {
   return (
     <div>
-      Hello World
+      <VotingSession />
     </div>
   );
-}
+};
 
 export default App;
