@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SongVoting.API.Models.Database;
 
 namespace SongVoting.API
 {
@@ -17,6 +19,11 @@ namespace SongVoting.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DatabaseContext>(options =>
+            {
+                options.UseInMemoryDatabase("SongVoting");
+            });
+
             services.AddHealthChecks();
 
             services.AddControllers();
