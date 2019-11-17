@@ -33,7 +33,7 @@ namespace SongVoting.API.Services
 
         public Task<VotingSession> GetMostRecentVotingSessionAsync()
         {
-            return _databaseContext.VotingSessions.LastOrDefaultAsync();
+            return _databaseContext.VotingSessions.Include(i => i.Owner).Include(i => i.Items).ThenInclude(i => i.Item).LastOrDefaultAsync();
         }
 
         public Task<VotingSession> GetVotingSessionFromIdAsync(int votingSessionId)
@@ -43,7 +43,7 @@ namespace SongVoting.API.Services
 
         public Task<List<VotingSession>> GetVotingSessionsAsync()
         {
-            return _databaseContext.VotingSessions.ToListAsync();
+            return _databaseContext.VotingSessions.Include(i => i.Owner).ToListAsync();
         }
 
         public async Task RemoveVotingSessionAsync(int votingSessionId)

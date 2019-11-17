@@ -1,27 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import VotingItem from './VotingItem';
 import SpotifyTrack from './SpotifyTrack';
-import { Song } from '../models/Song';
+import { VotingSessionModel } from '../models/VotingSessionModel';
 
 const VotingSession: React.FC = () => {
-  const [items, setItems] = useState<Song[]>([]);
+  const [votingSession, setvotingSession] = useState<VotingSessionModel>();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/songs')
+    fetch('http://localhost:5000/api/votingsessions/recent')
       .then(resp => resp.json())
       .then(resp => {
-        setItems(resp);
+        setvotingSession(resp);
       })
       .catch(err => console.error(err));
   }, []);
 
   return (
     <div>
-      {items.map((item, index) => (
-        <VotingItem key={index}>
-          {liked => <SpotifyTrack songId={item.songId} liked={liked} />}
-        </VotingItem>
-      ))}
+      {votingSession && (
+        <>
+          <div>VotingSession: {votingSession.name}</div>
+          <div>Owner: {votingSession.owner.username}</div>
+          {votingSession.items.map((item, index) => (
+            <VotingItem key={index}>
+              {liked => (
+                <SpotifyTrack songId={item.item.spotifyId} liked={liked} />
+              )}
+            </VotingItem>
+          ))}
+        </>
+      )}
     </div>
   );
 };
