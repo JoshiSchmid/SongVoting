@@ -14,5 +14,7 @@ namespace SongVoting.API.Services
         Task<bool> UsernameExistsAsync(string username);
 
         Task<User> AddUserAsync(string username, DateTime created);
+
+        Task RemoveUserAsync(int userId);
     }
 }

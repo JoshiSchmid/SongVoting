@@ -11,7 +11,7 @@ namespace SongVoting.API.Models.Database
 
         public DateTime Created { get; set; }
 
-        public ICollection<Vote> Votes { get; set; }
+        public ICollection<VotingSessionItemVote> Votes { get; set; }
     }
 
     public class UserConfiguration : IEntityTypeConfiguration<User>

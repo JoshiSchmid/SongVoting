@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SongVoting.API.Models.Database;
+using SongVoting.API.Services;
 
 namespace SongVoting.API
 {
@@ -23,6 +24,9 @@ namespace SongVoting.API
             {
                 options.UseInMemoryDatabase("SongVoting");
             });
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IVotingSessionService, VotingSessionService>();
 
             services.AddHealthChecks();
 

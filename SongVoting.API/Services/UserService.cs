@@ -15,21 +15,6 @@ namespace SongVoting.API.Services
             _databaseContext = databaseContext;
         }
 
-        public Task<List<User>> GetUsersAsync()
-        {
-            return _databaseContext.Users.ToListAsync();
-        }
-
-        public Task<User> GetUserFromIdAsync(int userId)
-        {
-            return _databaseContext.Users.FirstOrDefaultAsync(i => i.Id == userId);
-        }
-
-        public Task<bool> UsernameExistsAsync(string username)
-        {
-            return _databaseContext.Users.AnyAsync(i => i.Username == username);
-        }
-
         public async Task<User> AddUserAsync(string username, DateTime created)
         {
             var user = new User
@@ -43,6 +28,32 @@ namespace SongVoting.API.Services
             await _databaseContext.SaveChangesAsync();
 
             return user;
+        }
+
+        public Task<User> GetUserFromIdAsync(int userId)
+        {
+            return _databaseContext.Users.FirstOrDefaultAsync(i => i.Id == userId);
+        }
+
+        public Task<List<User>> GetUsersAsync()
+        {
+            return _databaseContext.Users.ToListAsync();
+        }
+
+        public async Task RemoveUserAsync(int userId)
+        {
+            var user = await GetUserFromIdAsync(userId);
+
+            if (user == null) return;
+
+            _databaseContext.Users.Remove(user);
+
+            await _databaseContext.SaveChangesAsync();
+        }
+
+        public Task<bool> UsernameExistsAsync(string username)
+        {
+            return _databaseContext.Users.AnyAsync(i => i.Username == username);
         }
     }
 }
