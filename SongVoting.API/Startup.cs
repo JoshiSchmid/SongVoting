@@ -27,6 +27,7 @@ namespace SongVoting.API
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IVotingSessionService, VotingSessionService>();
+            services.AddScoped<IVotingSessionItemVoteService, VotingSessionItemVoteService>();
 
             services.AddHealthChecks();
 
