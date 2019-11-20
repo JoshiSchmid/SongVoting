@@ -1,4 +1,7 @@
 import React, { useState, ReactNode } from 'react';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import { Button } from '@material-ui/core';
 
 interface ComponentProps {
   children: (liked?: boolean) => ReactNode;
@@ -18,8 +21,26 @@ const VotingItem: React.FC<ComponentProps> = ({ children }) => {
   return (
     <div>
       {children(liked)}
-      <button onClick={handleLike}>Like</button>
-      <button onClick={handleDislike}>Dislike</button>
+      <Button
+        className="icon-button"
+        onClick={handleLike}
+        variant="outlined"
+        style={{
+          marginBottom: 28,
+        }}
+      >
+        <ThumbUpIcon className="Icon"/>
+      </Button>
+      <Button
+        className="icon-button"
+        onClick={handleDislike}
+        variant="outlined"
+        style={{
+          marginBottom: 28,
+        }}
+      >
+        <ThumbDownIcon className="Icon" />
+      </Button>
       {liked === true ? 'Liked' : liked === false ? 'Disliked' : ''}
     </div>
   );
