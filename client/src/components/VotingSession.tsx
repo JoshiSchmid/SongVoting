@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import VotingItem from './VotingItem';
 import SpotifyTrack from './SpotifyTrack';
 import { VotingSessionModel } from '../models/VotingSessionModel';
+import { width } from '@material-ui/system';
 
 const VotingSession: React.FC = () => {
   const [votingSession, setvotingSession] = useState<VotingSessionModel>();
@@ -16,11 +17,12 @@ const VotingSession: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{
+      margin: "0 auto",
+      display: "table"
+    }}>
       {votingSession && (
         <>
-          <div>VotingSession: {votingSession.name}</div>
-          <div>Owner: {votingSession.owner.username}</div>
           {votingSession.items.map((item, index) => (
             <VotingItem key={index}>
               {liked => (
