@@ -29,7 +29,7 @@ const VotingItem: React.FC<ComponentProps> = ({ children }) => {
           marginBottom: 28,
         }}
       >
-        <ThumbUpIcon className="Icon"/>
+        <ThumbUpIcon className="Icon"  style={{color: liked ? "blue" : ""}}/>
       </Button>
       <Button
         className="icon-button"
@@ -37,11 +37,11 @@ const VotingItem: React.FC<ComponentProps> = ({ children }) => {
         variant="outlined"
         style={{
           marginBottom: 28,
+          
         }}
       >
-        <ThumbDownIcon className="Icon" />
+        <ThumbDownIcon className="Icon" style={{color: liked === false ? "red" : ""}}/>
       </Button>
-      {liked === true ? 'Liked' : liked === false ? 'Disliked' : ''}
     </div>
   );
 };
