@@ -1,5 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +36,16 @@ namespace SongVoting.API
             services.AddScoped<IVotingSessionService, VotingSessionService>();
             services.AddScoped<IVotingSessionItemVoteService, VotingSessionItemVoteService>();
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.Cookie.Name = "Auth";
+                options.Events.OnRedirectToLogin = (context) =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+            });
+
             services.AddHealthChecks();
 
             services.AddControllers();
@@ -47,13 +65,48 @@ namespace SongVoting.API
                     .AllowAnyOrigin();
             });
 
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                HttpOnly = HttpOnlyPolicy.Always,
+                MinimumSameSitePolicy = SameSiteMode.Strict
+            });
+
             app.UseHttpsRedirection();
 
             app.UseHealthChecks("/health");
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.Use(async (context, next) =>
+            {
+                if (context.User?.Identity?.IsAuthenticated != true)
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Sid, Guid.NewGuid().ToString()),
+                    };
+
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    };
+
+                    await context.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
+
+                    context.User = new ClaimsPrincipal(claimsIdentity);
+                }
+
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {

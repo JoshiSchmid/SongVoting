@@ -5,7 +5,7 @@ using SongVoting.API.Models.Database;
 using SongVoting.API.Services;
 
 [Route("api/votingsessions")]
-public class VotingSessionController : ControllerBase
+public class VotingSessionController : AuthenticatedController
 {
     private readonly IVotingSessionService _votingSessionService;
 
