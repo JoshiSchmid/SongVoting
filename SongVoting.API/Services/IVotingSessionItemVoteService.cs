@@ -8,7 +8,7 @@ namespace SongVoting.API.Services
     {
         Task<VotingSessionItemVote> GetVoteFromIdAsync(int votingSessionItemVoteId);
 
-        Task<VotingSessionItemVote> AddVoteAsync(int votingSessionItemId, int userId, bool liked, DateTime added);
+        Task<VotingSessionItemVote> AddVoteAsync(int votingSessionItemId, Guid userToken, bool liked, DateTime added);
 
         Task RemoveVoteAsync(int votingSessionItemVoteId);
     }

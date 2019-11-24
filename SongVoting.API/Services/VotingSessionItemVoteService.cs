@@ -14,12 +14,12 @@ namespace SongVoting.API.Services
             _databaseContext = databaseContext;
         }
 
-        public async Task<VotingSessionItemVote> AddVoteAsync(int votingSessionItemId, int userId, bool liked, DateTime added)
+        public async Task<VotingSessionItemVote> AddVoteAsync(int votingSessionItemId, Guid userToken, bool liked, DateTime added)
         {
             var vote = new VotingSessionItemVote
             {
                 VotingSessionItemId = votingSessionItemId,
-                UserId = userId,
+                UserToken = userToken,
                 Liked = liked,
                 Added = added
             };

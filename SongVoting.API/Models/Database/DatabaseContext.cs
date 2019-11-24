@@ -11,19 +11,15 @@ namespace SongVoting.API.Models.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Username = "Test User" }
-            );
-
             modelBuilder.Entity<SpotifyTrack>().HasData(
-                new SpotifyTrack { Id = 1, SpotifyId = "3KTikFVuiStwKvcIW0Y0uJ" },  //Größer 
+                new SpotifyTrack { Id = 1, SpotifyId = "3KTikFVuiStwKvcIW0Y0uJ" },  //Grï¿½ï¿½er 
                 new SpotifyTrack { Id = 2, SpotifyId = "5vMzNmHm2ec2zrqiYhkQzZ" },  //Yes I Will
                 new SpotifyTrack { Id = 3, SpotifyId = "0rH0mprtecH3grD9HFM5AD" },  //Reckless Love
                 new SpotifyTrack { Id = 4, SpotifyId = "4G29gmjS7Z2nEFeM7FA6wx" },  //Voice Of Truth
                 new SpotifyTrack { Id = 5, SpotifyId = "1Yqj7oGrttZH3JX2RYTmzS" },  //Du bist gut
                 new SpotifyTrack { Id = 6, SpotifyId = "5Bp8uC0h4CjxENVBnahOkD" },  //Der Einzige
                 new SpotifyTrack { Id = 7, SpotifyId = "2a1aibn4UgSkeTaxJSWw1L" },  //Mit dir an meiner Seite
-                new SpotifyTrack { Id = 8, SpotifyId = "78twEEzRCHmOzgRn7wAl8I" },  //Höher
+                new SpotifyTrack { Id = 8, SpotifyId = "78twEEzRCHmOzgRn7wAl8I" },  //Hï¿½her
                 new SpotifyTrack { Id = 9, SpotifyId = "7mj5fT0Biju5jR41m9ghUl" },  //King of My Heart
                 new SpotifyTrack { Id = 10, SpotifyId = "5AcdaSVQfLcUKMaqchfBie" }, //My Lighthouse
                 new SpotifyTrack { Id = 11, SpotifyId = "5lubagonZYGdyrfbBsOYdy" }, //Mit allem was ich bin
@@ -41,7 +37,7 @@ namespace SongVoting.API.Models.Database
             );
 
             modelBuilder.Entity<VotingSession>().HasData(
-                new VotingSession { Id = 1, OwnerId = 1, Name = "Freizeit" }
+                new VotingSession { Id = 1, Name = "Freizeit" }
             );
 
             modelBuilder.Entity<VotingSessionItem>().HasData(
@@ -67,14 +63,7 @@ namespace SongVoting.API.Models.Database
                 new VotingSessionItem { Id = 20, VotingSessionId = 1, ItemId = 20 },
                 new VotingSessionItem { Id = 21, VotingSessionId = 1, ItemId = 21 }
             );
-
-            modelBuilder.Entity<VotingSessionItemVote>().HasData(
-                new VotingSessionItemVote { Id = 1, UserId = 1, VotingSessionItemId = 1, Liked = false },
-                new VotingSessionItemVote { Id = 2, UserId = 1, VotingSessionItemId = 3, Liked = true }
-            );
         }
-
-        public DbSet<User> Users { get; set; }
 
         public DbSet<VotingSession> VotingSessions { get; set; }
 

@@ -25,7 +25,6 @@ namespace SongVoting.API
                 options.UseInMemoryDatabase("SongVoting");
             });
 
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IVotingSessionService, VotingSessionService>();
             services.AddScoped<IVotingSessionItemVoteService, VotingSessionItemVoteService>();
 

@@ -13,7 +13,7 @@ namespace SongVoting.API.Services
 
         Task<VotingSession> GetMostRecentVotingSessionAsync();
 
-        Task<VotingSession> AddVotingSessionAsync(int userId, string name, DateTime created);
+        Task<VotingSession> AddVotingSessionAsync(string name, DateTime created);
 
         Task RemoveVotingSessionAsync(int votingSessionId);
     }

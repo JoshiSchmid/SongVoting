@@ -6,12 +6,10 @@ namespace SongVoting.API.Models.Database
     {
         public int VotingSessionItemId { get; set; }
 
-        public int UserId { get; set; }
-
         public bool Liked { get; set; }
 
         public DateTime Added { get; set; }
 
-        public User User { get; set; }
+        public Guid UserToken { get; set; }
     }
 }
