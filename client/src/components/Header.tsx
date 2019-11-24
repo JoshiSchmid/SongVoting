@@ -1,13 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 const Header: React.FC = () => {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <Typography variant="h6">
-          Winterfreizeit 2020
-        </Typography>
+        <Typography variant="h6">Winterfreizeit 2020</Typography>
       </Toolbar>
     </AppBar>
   );
