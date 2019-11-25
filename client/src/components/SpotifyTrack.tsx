@@ -28,9 +28,9 @@ const SpotifyTrack: React.FC<ComponentProps> = ({ songId, liked }) => {
     <iframe
       title={songId}
       src={'https://open.spotify.com/embed/track/' + songId}
-      width={300}
+      width={250}
       height={80}
-      frameBorder={0}
+      frameBorder={0}      
     ></iframe>
   );
 };
