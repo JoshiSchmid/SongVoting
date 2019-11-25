@@ -20,6 +20,7 @@ const VotingSession: React.FC = () => {
       style={{
         margin: '0 auto',
         display: 'table',
+        backgroundColor: 'black'
       }}
     >
       {votingSession && (
