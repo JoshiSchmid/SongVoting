@@ -4,7 +4,9 @@ import Header from './Header';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <div style={{
+      backgroundColor: 'black'
+    }}>
       <Header/>
       <VotingSession />
     </div>
