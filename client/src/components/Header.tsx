@@ -1,12 +1,30 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 
 const Header: React.FC = () => {
   return (
-    <AppBar position="sticky">
+    <AppBar
+      position="sticky"
+      style={{
+        backgroundColor: 'black'
+      }}
+    >
       <Toolbar>
         <Typography variant="h6">Winterfreizeit 2020</Typography>
-      </Toolbar>
+
+        <Button
+          style={{
+            display: 'flex',
+            marginLeft: 'auto',
+            textTransform: 'none',
+            color: 'white',
+            borderColor: 'white'
+          }}
+          variant="outlined"
+        >
+          <Typography variant="h6">Speichern</Typography>
+        </Button>
+      </Toolbar> 
     </AppBar>
   );
 };
