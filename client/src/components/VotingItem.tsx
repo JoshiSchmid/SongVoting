@@ -2,6 +2,7 @@ import React, { useState, ReactNode } from 'react';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import { Button } from '@material-ui/core';
+import { height } from '@material-ui/system';
 
 interface ComponentProps {
   children: (liked?: boolean) => ReactNode;
@@ -19,29 +20,47 @@ const VotingItem: React.FC<ComponentProps> = ({ children }) => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        marginBottom: 2
+      }}
+    >
       {children(liked)}
-      <Button
-        className="icon-button"
-        onClick={handleLike}
-        variant="outlined"
-        style={{
-          marginBottom: 28,
-        }}
+      <span
       >
-        <ThumbUpIcon className="Icon"  style={{color: liked ? "blue" : ""}}/>
-      </Button>
-      <Button
-        className="icon-button"
-        onClick={handleDislike}
-        variant="outlined"
-        style={{
-          marginBottom: 28,
-          
-        }}
-      >
-        <ThumbDownIcon className="Icon" style={{color: liked === false ? "red" : ""}}/>
-      </Button>
+        <Button
+          className="icon-button"
+          onClick={handleLike}
+          variant="outlined"
+          style={{
+            display: 'flex',
+            borderColor: 'white',
+            height: 40
+          }}
+        >
+          <ThumbUpIcon
+            className="Icon"
+            style={{ color: liked ? '#21d92a' : 'white' }}
+          />
+        </Button>
+
+        <Button
+          className="icon-button"
+          onClick={handleDislike}
+          variant="outlined"
+          style={{
+            display: 'flex',
+            borderColor: 'white',
+            height: 40
+          }}
+        >
+          <ThumbDownIcon
+            className="Icon"
+            style={{ color: liked === false ? '#db1f31' : 'white' }}
+          />
+        </Button>
+      </span>
     </div>
   );
 };
