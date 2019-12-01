@@ -33,12 +33,13 @@ namespace SongVoting.API
                 options.UseInMemoryDatabase("SongVoting");
             });
 
-            services.AddScoped<IVotingSessionService, VotingSessionService>();
-            services.AddScoped<IVotingSessionItemVoteService, VotingSessionItemVoteService>();
+            services.AddScoped<IVotingService, VotingService>();
+            services.AddScoped<ISpotifyTrackService, SpotifyTrackService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.Cookie.Name = "Auth";
+                options.Cookie.SameSite = SameSiteMode.None;
                 options.Events.OnRedirectToLogin = (context) =>
                 {
                     context.Response.StatusCode = 401;
@@ -60,9 +61,10 @@ namespace SongVoting.API
 
             app.UseCors(options =>
             {
-                options.AllowAnyHeader()
+                options.WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowAnyOrigin();
+                    .AllowCredentials();
             });
 
             app.UseCookiePolicy(new CookiePolicyOptions

@@ -2,9 +2,9 @@ using System;
 
 namespace SongVoting.API.Models.Database
 {
-    public class VotingSessionItemVote : DatabaseTable
+    public class Vote : DatabaseTable
     {
-        public int VotingSessionItemId { get; set; }
+        public int SpotifyTrackId { get; set; }
 
         public bool Liked { get; set; }
 

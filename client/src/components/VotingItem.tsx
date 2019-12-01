@@ -2,14 +2,14 @@ import React, { useState, ReactNode } from 'react';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import { Button } from '@material-ui/core';
-import { height } from '@material-ui/system';
 
 interface ComponentProps {
+  initialLiked?: boolean;
   children: (liked?: boolean) => ReactNode;
 }
 
-const VotingItem: React.FC<ComponentProps> = ({ children }) => {
-  const [liked, setLiked] = useState<boolean | undefined>();
+const VotingItem: React.FC<ComponentProps> = ({ children, initialLiked }) => {
+  const [liked, setLiked] = useState<boolean | undefined>(initialLiked);
 
   const handleLike = () => {
     setLiked(oldLiked => (oldLiked !== true ? true : undefined));
@@ -23,12 +23,11 @@ const VotingItem: React.FC<ComponentProps> = ({ children }) => {
     <div
       style={{
         display: 'flex',
-        marginBottom: 2
+        marginBottom: 2,
       }}
     >
       {children(liked)}
-      <span
-      >
+      <span>
         <Button
           className="icon-button"
           onClick={handleLike}
@@ -36,7 +35,7 @@ const VotingItem: React.FC<ComponentProps> = ({ children }) => {
           style={{
             display: 'flex',
             borderColor: 'white',
-            height: 40
+            height: 40,
           }}
         >
           <ThumbUpIcon
@@ -52,7 +51,7 @@ const VotingItem: React.FC<ComponentProps> = ({ children }) => {
           style={{
             display: 'flex',
             borderColor: 'white',
-            height: 40
+            height: 40,
           }}
         >
           <ThumbDownIcon

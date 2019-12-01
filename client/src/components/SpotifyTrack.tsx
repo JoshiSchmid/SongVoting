@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 
 interface ComponentProps {
-  songId: string;
+  id: number;
+  spotifyId: string;
   liked?: boolean;
 }
 
-const SpotifyTrack: React.FC<ComponentProps> = ({ songId, liked }) => {
+const SpotifyTrack: React.FC<ComponentProps> = ({ id, spotifyId, liked }) => {
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -15,22 +16,32 @@ const SpotifyTrack: React.FC<ComponentProps> = ({ songId, liked }) => {
       return;
     }
 
-    fetch('http://localhost:5000/api/songs/' + songId, {
-      method: 'POST',
-      body: JSON.stringify(liked),
-      headers: [['Content-Type', 'application/json']],
-    })
-      .then()
-      .catch(err => console.error(err));
-  }, [songId, liked]);
+    const saveVote = async () => {
+      try {
+        await fetch('http://localhost:5000/api/votes', {
+          method: 'POST',
+          body: JSON.stringify({
+            spotifyTrackId: id,
+            liked: liked,
+          }),
+          headers: [['Content-Type', 'application/json']],
+          credentials: 'include',
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    saveVote();
+  }, [id, liked]);
 
   return (
     <iframe
-      title={songId}
-      src={'https://open.spotify.com/embed/track/' + songId}
+      title={spotifyId}
+      src={'https://open.spotify.com/embed/track/' + spotifyId}
       width={250}
       height={80}
-      frameBorder={0}      
+      frameBorder={0}
     ></iframe>
   );
 };

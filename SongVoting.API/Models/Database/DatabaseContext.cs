@@ -33,44 +33,11 @@ namespace SongVoting.API.Models.Database
                 new SpotifyTrack { Id = 19, SpotifyId = "0jxIbgW2FoPhqgTh5qhegg" }, //Wunderbarer Gott
                 new SpotifyTrack { Id = 20, SpotifyId = "3agx8NSEa7IPUxvbQs5Xax" }, //Ich tauch ein
                 new SpotifyTrack { Id = 21, SpotifyId = "50lW1fKoDtyKaiR2bR7ksl" }  //Who You Say I Am
-
-            );
-
-            modelBuilder.Entity<VotingSession>().HasData(
-                new VotingSession { Id = 1, Name = "Freizeit" }
-            );
-
-            modelBuilder.Entity<VotingSessionItem>().HasData(
-                new VotingSessionItem { Id = 1, VotingSessionId = 1, ItemId = 1 },
-                new VotingSessionItem { Id = 2, VotingSessionId = 1, ItemId = 2 },
-                new VotingSessionItem { Id = 3, VotingSessionId = 1, ItemId = 3 },
-                new VotingSessionItem { Id = 4, VotingSessionId = 1, ItemId = 4 },
-                new VotingSessionItem { Id = 5, VotingSessionId = 1, ItemId = 5 },
-                new VotingSessionItem { Id = 6, VotingSessionId = 1, ItemId = 6 },
-                new VotingSessionItem { Id = 7, VotingSessionId = 1, ItemId = 7 },
-                new VotingSessionItem { Id = 8, VotingSessionId = 1, ItemId = 8 },
-                new VotingSessionItem { Id = 9, VotingSessionId = 1, ItemId = 9 },
-                new VotingSessionItem { Id = 10, VotingSessionId = 1, ItemId = 10 },
-                new VotingSessionItem { Id = 11, VotingSessionId = 1, ItemId = 11 },
-                new VotingSessionItem { Id = 12, VotingSessionId = 1, ItemId = 12 },
-                new VotingSessionItem { Id = 13, VotingSessionId = 1, ItemId = 13 },
-                new VotingSessionItem { Id = 14, VotingSessionId = 1, ItemId = 14 },
-                new VotingSessionItem { Id = 15, VotingSessionId = 1, ItemId = 15 },
-                new VotingSessionItem { Id = 16, VotingSessionId = 1, ItemId = 16 },
-                new VotingSessionItem { Id = 17, VotingSessionId = 1, ItemId = 17 },
-                new VotingSessionItem { Id = 18, VotingSessionId = 1, ItemId = 18 },
-                new VotingSessionItem { Id = 19, VotingSessionId = 1, ItemId = 19 },
-                new VotingSessionItem { Id = 20, VotingSessionId = 1, ItemId = 20 },
-                new VotingSessionItem { Id = 21, VotingSessionId = 1, ItemId = 21 }
             );
         }
 
-        public DbSet<VotingSession> VotingSessions { get; set; }
-
-        public DbSet<VotingSessionItem> VotingSessionItems { get; set; }
-
-        public DbSet<VotingSessionItemVote> VotingSessionItemVotes { get; set; }
-
         public DbSet<SpotifyTrack> SpotifyTracks { get; set; }
+
+        public DbSet<Vote> Votes { get; set; }
     }
 }

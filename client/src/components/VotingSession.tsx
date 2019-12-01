@@ -1,18 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import VotingItem from './VotingItem';
 import SpotifyTrack from './SpotifyTrack';
-import { VotingSessionModel } from '../models/VotingSessionModel';
+import { SpotifyTrackModel } from '../models/SpotifyTrackModel';
+import { VoteModel } from '../models/VoteModel';
 
 const VotingSession: React.FC = () => {
-  const [votingSession, setvotingSession] = useState<VotingSessionModel>();
+  const [tracks, setTracks] = useState<SpotifyTrackModel[]>();
+  const [votes, setVotes] = useState<VoteModel[]>();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/votingsessions/recent')
-      .then(resp => resp.json())
-      .then(resp => {
-        setvotingSession(resp);
-      })
-      .catch(err => console.error(err));
+    const loadTracks = async () => {
+      try {
+        const resp = await fetch('http://localhost:5000/api/tracks', {
+          credentials: 'include',
+        });
+        const data = await resp.json();
+
+        setTracks(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const loadLikes = async () => {
+      try {
+        const resp = await fetch('http://localhost:5000/api/votes/user', {
+          credentials: 'include',
+        });
+        const data = await resp.json();
+
+        setVotes(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    loadTracks();
+    loadLikes();
   }, []);
 
   return (
@@ -23,17 +47,26 @@ const VotingSession: React.FC = () => {
         backgroundColor: 'black'
       }}
     >
-      {votingSession && (
-        <>
-          {votingSession.items.map((item, index) => (
-            <VotingItem key={index}>
+      {tracks &&
+        votes &&
+        tracks.map((track, index) => {
+          const vote = votes.find(i => i.spotifyTrackId === track.id);
+
+          return (
+            <VotingItem
+              key={index}
+              initialLiked={vote ? vote.liked : undefined}
+            >
               {liked => (
-                <SpotifyTrack songId={item.item.spotifyId} liked={liked} />
+                <SpotifyTrack
+                  id={track.id}
+                  spotifyId={track.spotifyId}
+                  liked={liked}
+                />
               )}
             </VotingItem>
-          ))}
-        </>
-      )}
+          );
+        })}
     </div>
   );
 };
