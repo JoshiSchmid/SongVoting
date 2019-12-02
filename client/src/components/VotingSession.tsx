@@ -3,6 +3,7 @@ import VotingItem from './VotingItem';
 import SpotifyTrack from './SpotifyTrack';
 import { SpotifyTrackModel } from '../models/SpotifyTrackModel';
 import { VoteModel } from '../models/VoteModel';
+import CommentComponent from './CommentComponent';
 
 const VotingSession: React.FC = () => {
   const [tracks, setTracks] = useState<SpotifyTrackModel[]>();
@@ -44,7 +45,7 @@ const VotingSession: React.FC = () => {
       style={{
         margin: '0 auto',
         display: 'table',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
       }}
     >
       {tracks &&
@@ -53,18 +54,21 @@ const VotingSession: React.FC = () => {
           const vote = votes.find(i => i.spotifyTrackId === track.id);
 
           return (
-            <VotingItem
-              key={index}
-              initialLiked={vote ? vote.liked : undefined}
-            >
-              {liked => (
-                <SpotifyTrack
-                  id={track.id}
-                  spotifyId={track.spotifyId}
-                  liked={liked}
-                />
-              )}
-            </VotingItem>
+            <>
+              <VotingItem
+                key={index}
+                initialLiked={vote ? vote.liked : undefined}
+              >
+                {liked => (
+                  <SpotifyTrack
+                    id={track.id}
+                    spotifyId={track.spotifyId}
+                    liked={liked}
+                  />
+                )}
+              </VotingItem>
+              <CommentComponent comment=""/>
+            </>
           );
         })}
     </div>
