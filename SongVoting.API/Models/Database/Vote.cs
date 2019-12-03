@@ -8,6 +8,8 @@ namespace SongVoting.API.Models.Database
 
         public bool Liked { get; set; }
 
+        public string  Comment { get; set; }
+
         public DateTime Added { get; set; }
 
         public Guid UserToken { get; set; }

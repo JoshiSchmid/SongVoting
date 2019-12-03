@@ -5,5 +5,7 @@ namespace SongVoting.API.Models
         public int SpotifyTrackId { get; set; }
 
         public bool? Liked { get; set; }
+
+        public string? Comment { get; set; }
     }
 }

@@ -41,14 +41,14 @@ public class VotingSessionController : AuthenticatedController
         {
             if (req.Liked == null) return;
 
-            await _votingService.AddVoteAsync(req.SpotifyTrackId, UserToken.Value, req.Liked.Value, DateTime.UtcNow);
+            await _votingService.AddVoteAsync(req.SpotifyTrackId, UserToken.Value, req.Liked.Value, req.Comment, DateTime.UtcNow);
         }
         else
         {
             if (req.Liked == null)
                 await _votingService.RemoveVoteAsync(vote.Id);
             else
-                await _votingService.UpdateVoteAsync(vote, req.Liked.Value);
+                await _votingService.UpdateVoteAsync(vote, req.Liked.Value, req.Comment);
         }
     }
 }

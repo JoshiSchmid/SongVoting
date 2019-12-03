@@ -13,9 +13,9 @@ namespace SongVoting.API.Services
 
         Task<List<Vote>> GetVotesFromUserAsync(Guid userToken);
 
-        Task<Vote> AddVoteAsync(int spotifyTrackId, Guid userToken, bool liked, DateTime added);
+        Task<Vote> AddVoteAsync(int spotifyTrackId, Guid userToken, bool liked, string comment, DateTime added);
 
-        Task UpdateVoteAsync(Vote vote, bool liked);
+        Task UpdateVoteAsync(Vote vote, bool liked, string comment);
 
         Task RemoveVoteAsync(int voteId);
     }

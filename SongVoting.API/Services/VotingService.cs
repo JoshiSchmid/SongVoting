@@ -16,13 +16,14 @@ namespace SongVoting.API.Services
             _databaseContext = databaseContext;
         }
 
-        public async Task<Vote> AddVoteAsync(int spotifyTrackId, Guid userToken, bool liked, DateTime added)
+        public async Task<Vote> AddVoteAsync(int spotifyTrackId, Guid userToken, bool liked, string comment, DateTime added)
         {
             var vote = new Vote
             {
                 SpotifyTrackId = spotifyTrackId,
                 UserToken = userToken,
                 Liked = liked,
+                Comment = comment,
                 Added = added
             };
 
@@ -50,9 +51,10 @@ namespace SongVoting.API.Services
             return _databaseContext.Votes.Where(i => i.UserToken == userToken).ToListAsync();
         }
 
-        public async Task UpdateVoteAsync(Vote vote, bool liked)
+        public async Task UpdateVoteAsync(Vote vote, bool liked, string comment)
         {
             vote.Liked = liked;
+            vote.Comment = comment;
             vote.Added = DateTime.UtcNow;
 
             await _databaseContext.SaveChangesAsync();
