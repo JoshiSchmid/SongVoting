@@ -26,7 +26,7 @@ const VotingItem: React.FC<ComponentProps> = ({ children, initialLiked }) => {
         marginBottom: 2,
       }}
     >
-      {children(liked)}
+        {children(liked)}
       <span>
         <Button
           className="icon-button"

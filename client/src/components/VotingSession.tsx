@@ -60,14 +60,16 @@ const VotingSession: React.FC = () => {
                 initialLiked={vote ? vote.liked : undefined}
               >
                 {liked => (
-                  <SpotifyTrack
-                    id={track.id}
-                    spotifyId={track.spotifyId}
-                    liked={liked}
-                  />
+                  <div>
+                    <SpotifyTrack
+                      id={track.id}
+                      spotifyId={track.spotifyId}
+                      liked={liked}
+                    />
+                    {liked !== undefined && <CommentComponent comment="" />}
+                  </div>
                 )}
               </VotingItem>
-              <CommentComponent comment=""/>
             </>
           );
         })}
