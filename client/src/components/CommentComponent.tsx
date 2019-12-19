@@ -3,16 +3,18 @@ import { TextField, Button } from '@material-ui/core';
 
 interface ComponentProps {
   comment?: string;
+  voteId: number;
 }
 
 const CommentComponent: React.FC<ComponentProps> = (props: ComponentProps) => {
   const [comment, setComment] = useState<string>(props.comment?props.comment:"");
 
   const saveComment = async() => {
-    const resp = await fetch('http://localhost:5000/api/votes/1/comment', {
+    const resp = await fetch(`http://localhost:5000/api/votes/${props.voteId}/comment`, {
           credentials: 'include',
           method: "POST",
-          body: JSON.stringify(comment)
+          body: JSON.stringify(comment),
+          headers: {"Content-Type": "application/json"}
         });
   }
 

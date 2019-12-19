@@ -87,9 +87,10 @@ namespace SongVoting.API
             {
                 if (context.User?.Identity?.IsAuthenticated != true)
                 {
+                    var guid = Guid.NewGuid();
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Sid, Guid.NewGuid().ToString()),
+                        new Claim(ClaimTypes.Sid, guid.ToString()),
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -56,6 +56,7 @@ public class VotingSessionController : AuthenticatedController
     [HttpPost("{voteId}/comment")]
     public async Task AddCommentAsync(int voteId, [FromBody] string comment)
     {
-
+        var oldVote = await _votingService.GetVoteFromIdAsync(voteId);
+        await _votingService.UpdateVoteAsync(oldVote, oldVote.Liked, comment);
     }
 }
