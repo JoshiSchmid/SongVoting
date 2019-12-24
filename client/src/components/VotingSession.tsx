@@ -40,6 +40,10 @@ const VotingSession: React.FC = () => {
     loadLikes();
   }, []);
 
+  const handleVoteSaved = (vote: VoteModel) => {
+    setVotes([...votes, vote])
+  }
+
   return (
     <div
       style={{
@@ -65,6 +69,7 @@ const VotingSession: React.FC = () => {
                       id={track.id}
                       spotifyId={track.spotifyId}
                       liked={liked}
+                      onVoteSaved={handleVoteSaved}
                     />
                     {liked !== undefined && vote && <CommentComponent voteId={vote.id} comment={vote ? vote.comment : ""}/>}
                   </div>

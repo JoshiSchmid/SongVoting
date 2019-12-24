@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import {VoteModel} from '../models/VoteModel'
 
 interface ComponentProps {
   id: number;
@@ -17,8 +18,8 @@ const SpotifyTrack: React.FC<ComponentProps> = ({ id, spotifyId, liked }) => {
     }
 
     const saveVote = async () => {
-      try {
-        await fetch('http://localhost:5000/api/votes', {
+      try {        
+        const vote = await fetch('http://localhost:5000/api/votes', {
           method: 'POST',
           body: JSON.stringify({
             spotifyTrackId: id,
@@ -27,6 +28,8 @@ const SpotifyTrack: React.FC<ComponentProps> = ({ id, spotifyId, liked }) => {
           headers: [['Content-Type', 'application/json']],
           credentials: 'include',
         });
+        const data = (await vote.json()) as VoteModel;
+        console.log(data);
       } catch (err) {
         console.error(err);
       }

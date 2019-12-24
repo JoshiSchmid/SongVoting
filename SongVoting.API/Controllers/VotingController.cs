@@ -31,25 +31,29 @@ public class VotingSessionController : AuthenticatedController
     }
 
     [HttpPost]
-    public async Task AddVoteAsync([FromBody] AddVoteRequest req)
+    public async Task<Vote> AddVoteAsync([FromBody] AddVoteRequest req)
     {
-        if (!ModelState.IsValid || !UserToken.HasValue) return;
+        if (!ModelState.IsValid || !UserToken.HasValue) return null;
 
         var vote = await _votingService.GetVoteAsync(req.SpotifyTrackId, UserToken.Value);
 
         if (vote == null)
         {
-            if (req.Liked == null) return;
-
-            await _votingService.AddVoteAsync(req.SpotifyTrackId, UserToken.Value, req.Liked.Value, req.Comment, DateTime.UtcNow);
+            if (req.Liked == null) return null;
+            
+            return await _votingService.AddVoteAsync(req.SpotifyTrackId, UserToken.Value, req.Liked.Value, req.Comment, DateTime.UtcNow);
         }
         else
         {
             if (req.Liked == null)
                 await _votingService.RemoveVoteAsync(vote.Id);
             else
+            {
                 await _votingService.UpdateVoteAsync(vote, req.Liked.Value, req.Comment);
+                return vote;
+            }
         }
+        return null;
     }
 
 
