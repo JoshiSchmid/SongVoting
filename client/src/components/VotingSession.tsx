@@ -3,11 +3,11 @@ import VotingItem from './VotingItem';
 import SpotifyTrack from './SpotifyTrack';
 import { SpotifyTrackModel } from '../models/SpotifyTrackModel';
 import { VoteModel } from '../models/VoteModel';
-import CommentComponent from './CommentComponent';
+import Comment from './Comment';
 
 const VotingSession: React.FC = () => {
   const [tracks, setTracks] = useState<SpotifyTrackModel[]>();
-  const [votes, setVotes] = useState<VoteModel[]>();
+  const [votes, setVotes] = useState<VoteModel[]>([]);
 
   useEffect(() => {
     const loadTracks = async () => {
@@ -28,6 +28,7 @@ const VotingSession: React.FC = () => {
         const resp = await fetch('http://localhost:5000/api/votes/user', {
           credentials: 'include',
         });
+
         const data = await resp.json();
 
         setVotes(data);
@@ -41,8 +42,13 @@ const VotingSession: React.FC = () => {
   }, []);
 
   const handleVoteSaved = (vote: VoteModel) => {
-    setVotes([...votes, vote])
-  }
+    if (votes === undefined) setVotes([vote]);
+    else setVotes([...votes, vote]);
+  };
+
+  const handleVoteRemoved = (spotifyTrackId: number) => {
+    setVotes(votes.filter(i => i.spotifyTrackId !== spotifyTrackId));
+  };
 
   return (
     <div
@@ -58,24 +64,28 @@ const VotingSession: React.FC = () => {
           const vote = votes.find(i => i.spotifyTrackId === track.id);
 
           return (
-            <>
-              <VotingItem
-                key={index}
-                initialLiked={vote ? vote.liked : undefined}
-              >
-                {liked => (
-                  <div>
-                    <SpotifyTrack
-                      id={track.id}
-                      spotifyId={track.spotifyId}
-                      liked={liked}
-                      onVoteSaved={handleVoteSaved}
+            <VotingItem
+              key={index}
+              initialLiked={vote ? vote.liked : undefined}
+            >
+              {liked => (
+                <div>
+                  <SpotifyTrack
+                    id={track.id}
+                    spotifyId={track.spotifyId}
+                    liked={liked}
+                    onVoteSaved={handleVoteSaved}
+                    onVoteRemoved={handleVoteRemoved}
+                  />
+                  {liked !== undefined && vote && (
+                    <Comment
+                      voteId={vote.id}
+                      comment={vote ? vote.comment : ''}
                     />
-                    {liked !== undefined && vote && <CommentComponent voteId={vote.id} comment={vote ? vote.comment : ""}/>}
-                  </div>
-                )}
-              </VotingItem>
-            </>
+                  )}
+                </div>
+              )}
+            </VotingItem>
           );
         })}
     </div>

@@ -1,13 +1,21 @@
 import React, { useEffect, useRef } from 'react';
-import {VoteModel} from '../models/VoteModel'
+import { VoteModel } from '../models/VoteModel';
 
 interface ComponentProps {
   id: number;
   spotifyId: string;
   liked?: boolean;
+  onVoteSaved: (vote: VoteModel) => void;
+  onVoteRemoved: (spotifyTrackId: number) => void;
 }
 
-const SpotifyTrack: React.FC<ComponentProps> = ({ id, spotifyId, liked }) => {
+const SpotifyTrack: React.FC<ComponentProps> = ({
+  id,
+  spotifyId,
+  liked,
+  onVoteSaved,
+  onVoteRemoved,
+}) => {
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -18,7 +26,7 @@ const SpotifyTrack: React.FC<ComponentProps> = ({ id, spotifyId, liked }) => {
     }
 
     const saveVote = async () => {
-      try {        
+      try {
         const vote = await fetch('http://localhost:5000/api/votes', {
           method: 'POST',
           body: JSON.stringify({
@@ -28,8 +36,15 @@ const SpotifyTrack: React.FC<ComponentProps> = ({ id, spotifyId, liked }) => {
           headers: [['Content-Type', 'application/json']],
           credentials: 'include',
         });
+
+        if (liked === undefined) {
+          onVoteRemoved(id);
+          return;
+        }
+
         const data = (await vote.json()) as VoteModel;
-        console.log(data);
+
+        onVoteSaved(data);
       } catch (err) {
         console.error(err);
       }

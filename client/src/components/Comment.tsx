@@ -6,17 +6,19 @@ interface ComponentProps {
   voteId: number;
 }
 
-const CommentComponent: React.FC<ComponentProps> = (props: ComponentProps) => {
-  const [comment, setComment] = useState<string>(props.comment?props.comment:"");
+const Comment: React.FC<ComponentProps> = (props: ComponentProps) => {
+  const [comment, setComment] = useState<string>(
+    props.comment ? props.comment : '',
+  );
 
-  const saveComment = async() => {
-    const resp = await fetch(`http://localhost:5000/api/votes/${props.voteId}/comment`, {
-          credentials: 'include',
-          method: "POST",
-          body: JSON.stringify(comment),
-          headers: {"Content-Type": "application/json"}
-        });
-  }
+  const saveComment = async () => {
+    await fetch(`http://localhost:5000/api/votes/${props.voteId}/comment`, {
+      credentials: 'include',
+      method: 'POST',
+      body: JSON.stringify(comment),
+      headers: { 'Content-Type': 'application/json' },
+    });
+  };
 
   return (
     <div>
@@ -36,10 +38,10 @@ const CommentComponent: React.FC<ComponentProps> = (props: ComponentProps) => {
       />
 
       <Button onClick={saveComment} variant="contained" color="primary">
-        save
-        </Button>
+        Speichern
+      </Button>
     </div>
   );
 };
 
-export default CommentComponent;
+export default Comment;

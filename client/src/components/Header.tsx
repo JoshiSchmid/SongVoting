@@ -6,25 +6,12 @@ const Header: React.FC = () => {
     <AppBar
       position="sticky"
       style={{
-        backgroundColor: 'black'
+        backgroundColor: 'black',
       }}
     >
       <Toolbar>
         <Typography variant="h6">Winterfreizeit 2020</Typography>
-
-        <Button
-          style={{
-            display: 'flex',
-            marginLeft: 'auto',
-            textTransform: 'none',
-            color: 'white',
-            borderColor: 'white'
-          }}
-          variant="outlined"
-        >
-          <Typography variant="h6">Speichern</Typography>
-        </Button>
-      </Toolbar> 
+      </Toolbar>
     </AppBar>
   );
 };
