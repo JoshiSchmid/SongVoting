@@ -27,7 +27,7 @@ const SpotifyTrack: React.FC<ComponentProps> = ({
 
     const saveVote = async () => {
       try {
-        const vote = await fetch('http://localhost:5000/api/votes', {
+        const vote = await fetch(`${process.env.REACT_APP_API_URL}/votes`, {
           method: 'POST',
           body: JSON.stringify({
             spotifyTrackId: id,

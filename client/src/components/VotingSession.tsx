@@ -12,7 +12,7 @@ const VotingSession: React.FC = () => {
   useEffect(() => {
     const loadTracks = async () => {
       try {
-        const resp = await fetch('http://localhost:5000/api/tracks', {
+        const resp = await fetch(`${process.env.REACT_APP_API_URL}/tracks`, {
           credentials: 'include',
         });
         const data = await resp.json();
@@ -25,9 +25,12 @@ const VotingSession: React.FC = () => {
 
     const loadLikes = async () => {
       try {
-        const resp = await fetch('http://localhost:5000/api/votes/user', {
-          credentials: 'include',
-        });
+        const resp = await fetch(
+          `${process.env.REACT_APP_API_URL}/votes/user`,
+          {
+            credentials: 'include',
+          },
+        );
 
         const data = await resp.json();
 

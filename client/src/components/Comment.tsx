@@ -12,12 +12,15 @@ const Comment: React.FC<ComponentProps> = (props: ComponentProps) => {
   );
 
   const saveComment = async () => {
-    await fetch(`http://localhost:5000/api/votes/${props.voteId}/comment`, {
-      credentials: 'include',
-      method: 'POST',
-      body: JSON.stringify(comment),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    await fetch(
+      `${process.env.REACT_APP_API_URL}/votes/${props.voteId}/comment`,
+      {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(comment),
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
   };
 
   return (
