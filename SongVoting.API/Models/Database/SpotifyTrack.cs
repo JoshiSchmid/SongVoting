@@ -9,7 +9,7 @@ namespace SongVoting.API.Models.Database
     {
         public string SpotifyId { get; set; }
 
-        public DateTime Added { get; set; }
+        public DateTime Added { get; set; } = DateTime.UtcNow;
 
         public ICollection<Vote> Votes { get; set; }
     }

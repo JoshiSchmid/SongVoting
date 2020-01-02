@@ -6,6 +6,6 @@ namespace SongVoting.API.Models
 
         public bool? Liked { get; set; }
 
-        public string? Comment { get; set; }
+        public string Comment { get; set; }
     }
 }

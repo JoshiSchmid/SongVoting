@@ -35,9 +35,6 @@ namespace SongVoting.API.Models.Database
                 new SpotifyTrack { Id = 20, SpotifyId = "3agx8NSEa7IPUxvbQs5Xax" }, //Ich tauch ein
                 new SpotifyTrack { Id = 21, SpotifyId = "50lW1fKoDtyKaiR2bR7ksl" }  //Who You Say I Am
             );
-            modelBuilder.Entity<Vote>().HasData(
-                new Vote { SpotifyTrackId = 1, Id = 1, Liked = true, Comment = "Hi" , UserToken = new Guid("a32623bd-6be4-4142-95c0-cd3b74219e23") }
-                );
         }
 
         public DbSet<SpotifyTrack> SpotifyTracks { get; set; }

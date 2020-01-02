@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SongVoting.API.Models.Database;
 using SongVoting.API.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace SongVoting.API
 {
@@ -28,10 +28,14 @@ namespace SongVoting.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options =>
-            {
-                options.UseInMemoryDatabase("SongVoting");
-            });
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connectionString));
+
+            // services.AddDbContext<DatabaseContext>(options =>
+            // {
+            //     options.UseInMemoryDatabase("SongVoting");
+            // });
 
             services.AddScoped<IVotingService, VotingService>();
             services.AddScoped<ISpotifyTrackService, SpotifyTrackService>();
