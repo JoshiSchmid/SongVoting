@@ -35,6 +35,7 @@ const VotingItem: React.FC<ComponentProps> = ({ children, initialLiked }) => {
           style={{
             display: 'flex',
             borderColor: 'white',
+            borderWidth: 1.5,
             height: 40,
           }}
         >
@@ -51,6 +52,7 @@ const VotingItem: React.FC<ComponentProps> = ({ children, initialLiked }) => {
           style={{
             display: 'flex',
             borderColor: 'white',
+            borderWidth: 1.5,
             height: 40,
           }}
         >

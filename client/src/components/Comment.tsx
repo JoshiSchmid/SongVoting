@@ -24,19 +24,19 @@ const Comment: React.FC<ComponentProps> = (props: ComponentProps) => {
   };
 
   return (
-    <div>
+    <div style={{maxWidth: 248}}>
       <TextField
         placeholder="Kommentar..."
         inputProps={{
           style: {
-            color: 'white',
+            color: 'white',            
           },
         }}
         value={comment}
         onChange={e => setComment(e.target.value)}
         fullWidth
         style={{
-          marginBottom: 5,
+          marginBottom: 5,                    
         }}
       />
 
